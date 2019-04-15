@@ -64,11 +64,11 @@ function scripts(){
     return gulp.src(paths.js.src)
     .pipe(babel({
 			presets: ['@babel/preset-env']
-		}))
+    }))
+    .pipe(concat('main.js'))
     .pipe(uglify({
       toplevel: true
     }))
-    .pipe(concat('main.js'))
     .pipe(gulp.dest(paths.js.dest))
     .pipe(browserSync.reload({stream: true}));
   }

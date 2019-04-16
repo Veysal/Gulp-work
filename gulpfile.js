@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
+const plumber = require('gulp-plumber');
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
@@ -37,13 +38,15 @@ const paths = {
 
   // function html() {
   //   return src('src/templates/*.pug')
+  //     .pipe(plumber())
   //     .pipe(pug())
   //     .pipe(dest('dist/html'))
   // }
 
-  //Работа со стилями
+  // Работа со стилями
  function styles(){
     return gulp.src(paths.styles.src)
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
@@ -62,6 +65,7 @@ const paths = {
   //Работа со скриптами
 function scripts(){
     return gulp.src(paths.js.src)
+    .pipe(plumber())
     .pipe(babel({
 			presets: ['@babel/preset-env']
     }))
